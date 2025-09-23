@@ -1,5 +1,6 @@
-import React from 'react';
-import { useState, useEffect } from "react";
+import React, { useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
+import Card from '../card/Card';
 
 function MainBox() {
     const [city, setCity] = useState("");
@@ -15,31 +16,112 @@ function MainBox() {
         setWeather(data);
     };
 
+    const getDayOfWeek = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('en-US', { weekday: 'long' });
+    };
+
+    const groupByDate = (list) => {
+        const grouped = {};
+        list.forEach((item) => {
+            const date = item.dt_txt.split(" ")[0];
+            if (!grouped[date]) grouped[date] = [];
+            grouped[date].push(item);
+        });
+        return grouped;
+    };
+
+    const findClosestToNow = (items) => {
+        const now = new Date();
+        let best = items[0];
+        let bestDiff = Math.abs(new Date(items[0].dt_txt).getTime() - now.getTime());
+        items.forEach(it => {
+            const diff = Math.abs(new Date(it.dt_txt).getTime() - now.getTime());
+            if (diff < bestDiff) {
+                bestDiff = diff;
+                best = it;
+            }
+        });
+        return best;
+    };
+
+    const getDailyData = (list) => {
+        const grouped = groupByDate(list);
+        let dates = Object.keys(grouped).sort((a, b) => new Date(a) - new Date(b));
+
+        const todayStr = new Date().toISOString().split("T")[0];
+
+        return dates.map(date => {
+            const items = grouped[date];
+            if (date === todayStr) {
+                // امروز → نزدیک‌ترین رکورد به الان
+                const chosen = findClosestToNow(items);
+                return {
+                    date,
+                    dt_txt: chosen.dt_txt,
+                    displayTemp: Math.round(chosen.main.temp),
+                    description: chosen.weather[0].description,
+                };
+            } else {
+                // فردا و پس فردا → بیشترین دمای اون روز
+                let maxTemp = -Infinity;
+                let chosen = items[0];
+                items.forEach(it => {
+                    const t = it.main.temp_max ?? it.main.temp;
+                    if (t > maxTemp) {
+                        maxTemp = t;
+                        chosen = it;
+                    }
+                });
+                return {
+                    date,
+                    dt_txt: chosen.dt_txt,
+                    displayTemp: Math.round(maxTemp),
+                    description: chosen.weather[0].description,
+                };
+            }
+        });
+    };
+
     return (
-        <div className='w-2/5 flex justify-center items-center p-5 rounded-lg h-1/3 bg-[rgba(19,19,19,0.5)] text-white'>
-            <div className='h-1/2'>
+        <div className={`w-3/5 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-1/2" : "h-1/3"} bg-[rgba(19,19,19,0.5)] text-white transition-all duration-500`}>
+            <div className='h-14 w-4/5 relative border-2 rounded-lg flex justify-between px-2'>
                 <input
                     type="text"
                     placeholder="Enter city name..."
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
-                    className="border p-2 rounded"
+                    className="text-xl w-full focus:outline-none"
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") getWeather();
+                    }}
                 />
-                <button onClick={getWeather} className="ml-2 p-2 bg-blue-500 text-white rounded">
-                    Get Weather
+                <button onClick={getWeather} className="ml-2 p-2 text-white text-xl hover:text-orange-300">
+                    <FaSearch />
                 </button>
             </div>
 
             {weather && weather.list && (
-                <div className="mt-4">
-                    <h2 className="font-bold text-lg">
-                        Weather in {weather.city.name}, {weather.city.country}
-                    </h2>
-                    <p>{weather.list[0].main.temp}°C, {weather.list[0].weather[0].description}</p>
-                </div>
+                <>
+                    <div className="mt-4 relative">
+                        <h2 className='text-xl font-semibold'>
+                            Weather in <span className='text-red-300'>{weather.city.name}</span>, {weather.city.country} for 3 Days
+                        </h2>
+                    </div>
+                    <div className='relative flex flex-row w-4/5 justify-between gap-10 mt-5'>
+                        {getDailyData(weather.list).slice(0, 3).map((day, idx) => (
+                            <Card
+                                key={day.date}
+                                day={idx === 0 ? "Today" : idx === 1 ? "Tomorrow" : getDayOfWeek(day.dt_txt)}
+                                degree={day.displayTemp}
+                                description={day.description}
+                            />
+                        ))}
+                    </div>
+                </>
             )}
         </div>
-    )
+    );
 }
 
 export default MainBox;
