@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 import Card from '../card/Card';
 import ClothBox from '../cloth/ClothBox';
 
-function MainBox() {
+function MainBox({ onWeatherChange }) {
     const [city, setCity] = useState("");
     const [weather, setWeather] = useState(null); // Initialize as null for clarity
     const [temp, setTemp] = useState(0);
@@ -20,11 +20,15 @@ function MainBox() {
             const data = await res.json();
             if (data && data.list) {
                 setWeather(data);
-                // Set temp and desc for the current day when fetching weather
                 const dailyData = getDailyData(data.list);
                 if (dailyData.length > 0) {
-                    setTemp(dailyData[0].displayTemp);
-                    setDesc(dailyData[0].description);
+                    const today = dailyData[0]; // اینو اضافه کن
+                    setTemp(today.displayTemp);
+                    setDesc(today.description);
+                    onWeatherChange?.({
+                        temp: today.displayTemp,
+                        description: today.description,
+                    });
                 }
             }
         } catch (error) {
