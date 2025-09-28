@@ -3,11 +3,12 @@ import { FaSearch } from 'react-icons/fa';
 import Card from '../card/Card';
 import ClothBox from '../cloth/ClothBox';
 
-function MainBox({ onWeatherChange }) {
+function MainBox({ onWeatherChange, onTimeCheck }) {
     const [city, setCity] = useState("");
-    const [weather, setWeather] = useState(null); // Initialize as null for clarity
+    const [weather, setWeather] = useState(null);
     const [temp, setTemp] = useState(0);
     const [desc, setDesc] = useState("");
+    const [time, setTime] = useState("");
 
     const API_KEY = process.env.NEXT_PUBLIC_WEATHER_KEY;
 
@@ -20,9 +21,10 @@ function MainBox({ onWeatherChange }) {
             const data = await res.json();
             if (data && data.list) {
                 setWeather(data);
+                setTime(data.list[0].dt_txt);
                 const dailyData = getDailyData(data.list);
                 if (dailyData.length > 0) {
-                    const today = dailyData[0]; // اینو اضافه کن
+                    const today = dailyData[0];
                     setTemp(today.displayTemp);
                     setDesc(today.description);
                     onWeatherChange?.({
@@ -36,6 +38,22 @@ function MainBox({ onWeatherChange }) {
         }
     };
 
+    useEffect(() => {
+        const checkIsDayOrNight = (time) => {
+            let num = time.split(" ")[1];
+            if (num) {
+                let hour = num.split(":")[0];
+                let numHour = parseInt(hour);
+                if (numHour >= 18 || numHour <= 6) {
+                    onTimeCheck(false);
+                } else {
+                    onTimeCheck(true);
+                }
+            }
+        }
+        checkIsDayOrNight(time)
+    }, [time])
+
     const getDayOfWeek = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', { weekday: 'long' });
@@ -45,11 +63,13 @@ function MainBox({ onWeatherChange }) {
         const grouped = {};
         list.forEach((item) => {
             const date = item.dt_txt.split(" ")[0];
+            const hour = item.dt_txt.split(" ")[1];
             if (!grouped[date]) grouped[date] = [];
             grouped[date].push(item);
         });
         return grouped;
     };
+
 
     const findClosestToNow = (items) => {
         const now = new Date();
@@ -99,6 +119,8 @@ function MainBox({ onWeatherChange }) {
             }
         });
     };
+
+
 
     return (
         <div className='flex flex-col relative w-full items-center gap-20 h-full'>

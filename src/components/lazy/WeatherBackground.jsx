@@ -13,6 +13,7 @@ const BG_MAP = {
 export default function WeatherBackground({ condition = "Clear", isDay = true, children }) {
   let key = condition.toLowerCase();
   if (key.includes("cloud")) key = "Clouds";
+  else if(key.includes("cloud") && !isDay) key="CloudNight";
   else if (key.includes("rain")) key = "Rain";
   else if (key.includes("snow")) key = "Snow";
   else if (key.includes("fog") || key.includes("mist")) key = "Fog";
@@ -31,6 +32,7 @@ export default function WeatherBackground({ condition = "Clear", isDay = true, c
       {key === "Rain" && <RainOverlay />}
       {key === "Snow" && <SnowOverlay />}
       {key === "ClearNight" && <StarsOverlay />}
+      {key === "CloudNight" && <CloudNight />}
 
       <div className="relative z-10 flex flex-col">{children}</div>
 
@@ -148,6 +150,47 @@ function StarsOverlay() {
           }}
         />
       ))}
+    </div>
+  );
+}
+
+function CloudNight() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden">
+      {[...Array(5)].map((_, i) => (
+        <div
+          key={i}
+          className="cloud absolute bg-gray-400 opacity-30 rounded-full"
+          style={{
+            top: `${Math.random() * 60 + 20}%`, // ابرها بین 20% تا 80% از بالا قرار می‌گیرن
+            left: `${Math.random() * 100}%`,
+            width: `${Math.random() * 100 + 100}px`, // عرض ابرها بین 100 تا 200 پیکسل
+            height: `${Math.random() * 40 + 40}px`, // ارتفاع ابرها بین 40 تا 80 پیکسل
+            animationDuration: `${Math.random() * 20 + 20}s`, // سرعت انیمیشن بین 20 تا 40 ثانیه
+            animationName: 'moveClouds',
+            animationTimingFunction: 'linear',
+            animationIterationCount: 'infinite',
+          }}
+        />
+      ))}
+      <style jsx>{`
+        @keyframes moveClouds {
+          0% {
+            transform: translateX(-100%);
+          }
+          100% {
+            transform: translateX(100vw);
+          }
+        }
+        @keyframes twinkle {
+          0%, 100% {
+            opacity: 0.8;
+          }
+          50% {
+            opacity: 0.3;
+          }
+        }
+      `}</style>
     </div>
   );
 }
