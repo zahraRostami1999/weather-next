@@ -1,0 +1,15 @@
+.snowflake {
+  position: absolute;
+  top: -5vh;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: white;
+  opacity: 0.9;
+  animation: snow linear infinite;
+}
+
+@keyframes snow {
+  0% { transform: translateY(-5vh); }
+  100% { transform: translateY(110vh); }
+}

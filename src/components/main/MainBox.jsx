@@ -3,7 +3,7 @@ import { FaSearch } from 'react-icons/fa';
 import Card from '../card/Card';
 import ClothBox from '../cloth/ClothBox';
 
-function MainBox({ onWeatherChange, onTimeCheck }) {
+function MainBox({ onWeatherChange, onTimeCheck, isDay  }) {
     const [city, setCity] = useState("");
     const [weather, setWeather] = useState(null);
     const [temp, setTemp] = useState(0);
@@ -162,19 +162,20 @@ function MainBox({ onWeatherChange, onTimeCheck }) {
                                     day={idx === 0 ? "Today" : idx === 1 ? "Tomorrow" : getDayOfWeek(day.dt_txt)}
                                     degree={day.displayTemp}
                                     description={day.description}
+                                    isDay={isDay}   // 👈 اینجا پاس می‌دیم
                                 />
                             ))}
                         </div>
                     </>
                 )}
             </div>
-            {
+            {/* {
                 weather && (
                     <div className='w-full'>
                         <ClothBox temp={temp} description={desc} />
                     </div>
                 )
-            }
+            } */}
         </div>
     );
 }

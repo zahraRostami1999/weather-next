@@ -13,8 +13,8 @@ function Header({ isDay }) {
       {
         !isDay && (
           <>
-            <span className='text-sm absolute right-24'>⭐</span>
-            <span className='text-xs absolute right-28 top-9'>⭐</span>
+            <span className='text-xs absolute right-24'>⭐</span>
+            <span className='text-[10px] absolute right-28 top-9'>⭐</span>
             <span className='text-5xl'>🌙</span>
           </>
         )

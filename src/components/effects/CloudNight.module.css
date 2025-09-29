@@ -1,0 +1,24 @@
+.cloud {
+  position: absolute;
+  width: 200px;
+  height: 100px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(200, 200, 200, 0.1) 40%,
+    transparent 80%
+  );
+  border-radius: 50%;
+  filter: blur(20px);
+  animation: drift linear infinite;
+  opacity: 0.3;
+}
+
+@keyframes drift {
+  0% {
+    transform: translateX(-250px);
+  }
+  100% {
+    transform: translateX(120vw);
+  }
+}
