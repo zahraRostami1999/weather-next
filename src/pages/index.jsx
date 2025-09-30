@@ -14,13 +14,8 @@ export default function Home() {
       condition={weatherInfo?.description || "Clear"}
       isDay={isDay}
     >
-      {/* <div className="h-screen">
-        <WeatherBackground condition="clear" isDay={true}>
-          <h1 className="text-white">Test Night</h1>
-        </WeatherBackground>
-      </div> */}
       <div className="fixed top-0 w-full">
-        <Header isDay={isDay} />
+        <Header condition={weatherInfo?.description || "Clear"}/>
       </div>
       <div className="p-4 flex justify-center mt-20 w-full h-4/5">
         <MainBox onWeatherChange={(info) => setWeatherInfo(info)} onTimeCheck={(flag) => setIsDay(flag)} isDay={isDay} />

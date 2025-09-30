@@ -29,7 +29,7 @@ function Card({ day, degree, description, isDay }) {
 
     return (
         <div className='w-full flex justify-center flex-col pb-3 rounded-lg border border-white'>
-            <p className='bg-[rgba(19,19,19,0.5)] py-1 text-lg font-semibold text-white border-b border-white mb-2 flex items-center justify-center'>
+            <p className='bg-[rgba(19,19,19,0.5)] py-1 text-lg font-semibold rounded-t-lg text-white border-b border-white mb-2 flex items-center justify-center'>
                 {day}
             </p>
             <p className='text-center text-lg font-mono font-bold'>

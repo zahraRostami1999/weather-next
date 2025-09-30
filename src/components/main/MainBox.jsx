@@ -159,10 +159,10 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay  }) {
                             {getDailyData(weather.list).slice(0, 3).map((day, idx) => (
                                 <Card
                                     key={day.date}
-                                    day={idx === 0 ? "Today" : idx === 1 ? "Tomorrow" : getDayOfWeek(day.dt_txt)}
+                                    day={idx === 0 ? "Now" : idx === 1 ? "Tomorrow" : getDayOfWeek(day.dt_txt)}
                                     degree={day.displayTemp}
                                     description={day.description}
-                                    isDay={isDay}   // 👈 اینجا پاس می‌دیم
+                                    isDay={isDay}  
                                 />
                             ))}
                         </div>
