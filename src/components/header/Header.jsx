@@ -1,9 +1,12 @@
 import React from 'react';
 
+
 function Header({ condition }) {
   const now = new Date();
   const hours = now.getHours();
   const clearSky = condition.toLowerCase().includes('clear');
+  console.log(hours);
+  
 
   return (
     <div className='font-bold text-right px-10 py-5 text-red-950 bg'>
@@ -22,7 +25,7 @@ function Header({ condition }) {
         </>
       )}
       {
-        (hours <= 5 && hours >= 18) && (
+        (hours <= 5 || hours >= 18) && (
           <>
             {clearSky &&
               <>

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import Card from '../card/Card';
 import ClothBox from '../cloth/ClothBox';
+import SearchInput from './SearchInput';
+import { use } from 'react';
 
-function MainBox({ onWeatherChange, onTimeCheck, isDay  }) {
+function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
     const [city, setCity] = useState("");
     const [weather, setWeather] = useState(null);
     const [temp, setTemp] = useState(0);
@@ -11,6 +13,7 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay  }) {
     const [time, setTime] = useState("");
 
     const API_KEY = process.env.NEXT_PUBLIC_WEATHER_KEY;
+
 
     const getWeather = async () => {
         if (!city) return;
@@ -120,7 +123,13 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay  }) {
         });
     };
 
+    const handleCityChange = (newCity) => {
+        setCity(newCity);
+    }
 
+    useEffect(() => {
+        getWeather();
+    }, [city])
 
     return (
         <div className='flex flex-col relative w-full items-center gap-20 h-full'>
@@ -128,24 +137,7 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay  }) {
                 className={`w-3/5 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-1/2" : "h-1/3"
                     } bg-[rgba(19,19,19,0.5)] text-white transition-all duration-500`}
             >
-                <div className="h-14 w-4/5 relative border-2 rounded-lg flex justify-between px-2">
-                    <input
-                        type="text"
-                        placeholder="Enter city name..."
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        className="text-xl w-full focus:outline-none bg-transparent text-white"
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") getWeather();
-                        }}
-                    />
-                    <button
-                        onClick={getWeather}
-                        className="ml-2 p-2 text-white text-xl hover:text-orange-300"
-                    >
-                        <FaSearch />
-                    </button>
-                </div>
+                <SearchInput onCityChange={handleCityChange} />
 
                 {weather && weather.list && (
                     <>
@@ -162,7 +154,7 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay  }) {
                                     day={idx === 0 ? "Now" : idx === 1 ? "Tomorrow" : getDayOfWeek(day.dt_txt)}
                                     degree={day.displayTemp}
                                     description={day.description}
-                                    isDay={isDay}  
+                                    isDay={isDay}
                                 />
                             ))}
                         </div>
