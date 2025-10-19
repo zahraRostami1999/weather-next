@@ -9,8 +9,8 @@ function Header({ condition }) {
   
 
   return (
-    <div className='font-bold text-right px-10 py-5 text-red-950 bg'>
-      <span className='text-3xl absolute top-10 left-6'>☁️</span>
+    <div className='font-bold text-right px-10 py-2 text-red-950'>
+      <span className='text-3xl absolute top-5 left-6'>☁️</span>
 
       {(hours >= 6 && hours < 17) && (
         <>
@@ -36,13 +36,13 @@ function Header({ condition }) {
             }
             {
               !clearSky &&
-              <span className='text-4xl absolute top-10 right-10'>☁️</span>
+              <span className='text-4xl absolute top-6 right-10'>☁️</span>
             }
           </>
         )
       }
-      <span className='text-3xl absolute top-12 left-20'>☁️</span>
-      <span className='text-3xl absolute top-5 left-28'>☁️</span>
+      <span className='text-2xl absolute top-8 left-20'>☁️</span>
+      <span className='text-3xl absolute top-1 left-28'>☁️</span>
 
     </div>
   )

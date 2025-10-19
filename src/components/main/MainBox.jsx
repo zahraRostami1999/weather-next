@@ -141,12 +141,6 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
 
                 {weather && weather.list && (
                     <>
-                        <div className="mt-4 relative">
-                            <h2 className="text-xl font-semibold">
-                                Weather in <span className="text-red-300">{weather.city.name}</span>,{" "}
-                                {weather.city.country} for 3 Days
-                            </h2>
-                        </div>
                         <div className="relative flex flex-row w-4/5 justify-between gap-10 mt-5">
                             {getDailyData(weather.list).slice(0, 3).map((day, idx) => (
                                 <Card
