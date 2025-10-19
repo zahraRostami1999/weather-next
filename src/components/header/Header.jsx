@@ -12,7 +12,7 @@ function Header({ condition }) {
     <div className='font-bold text-right px-10 py-5 text-red-950 bg'>
       <span className='text-3xl absolute top-10 left-6'>☁️</span>
 
-      {(hours >= 6 && hours < 18) && (
+      {(hours >= 6 && hours < 17) && (
         <>
           <span className='text-3xl absolute top-10 right-22'>☁️</span>
           {clearSky &&
@@ -25,7 +25,7 @@ function Header({ condition }) {
         </>
       )}
       {
-        (hours <= 5 || hours >= 18) && (
+        (hours <= 5 || hours >= 17) && (
           <>
             {clearSky &&
               <>
