@@ -21,7 +21,7 @@ export default function Home() {
       <div className="fixed top-0 w-full">
         <Header condition={weatherInfo?.description || "Clear"} />
       </div>
-      <div className="p-4 flex justify-center mt-14 w-full h-4/5">
+      <div className="lg:p-4 p-0 flex justify-center lg:mt-14 mt-32 w-full lg:h-4/5">
         <MainBox onWeatherChange={(info) => setWeatherInfo(info)} onTimeCheck={(flag) => setIsDay(flag)} isDay={isDay} />
       </div>
       <div className="w-full flex justify-end bg-red-500">

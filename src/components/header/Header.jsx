@@ -7,7 +7,7 @@ function Header({ condition }) {
   const clearSky = condition.toLowerCase().includes('clear');  
 
   return (
-    <div className='font-bold text-right px-10 py-2 text-red-950'>
+    <div className='font-bold text-right lg:px-10 sm:px-5 px-2 py-2'>
       <span className='text-3xl absolute top-5 left-6'>☁️</span>
 
       {(hours >= 6 && hours < 17) && (

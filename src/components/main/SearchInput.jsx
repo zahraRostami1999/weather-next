@@ -50,7 +50,7 @@ function SearchInput({ onCityChange }) {
 
   return (
     <>
-      <div className="h-14 w-4/5 relative border-2 rounded-lg flex justify-between px-2">
+      <div className="h-14 lg:w-4/5 w-11/12 relative border-2 rounded-lg flex justify-between px-2">
         <input
           type="text"
           placeholder="Enter city name..."

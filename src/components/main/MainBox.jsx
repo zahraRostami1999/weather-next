@@ -134,7 +134,7 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
     return (
         <div className='flex flex-col relative w-full items-center gap-20 h-full'>
             <div
-                className={`w-3/5 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-1/2" : "h-1/3"
+                className={`lg:w-3/5 w-11/12 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-1/2" : "h-1/3"
                     } bg-[rgba(19,19,19,0.5)] text-white transition-all duration-500`}
             >
                 <SearchInput onCityChange={handleCityChange} />
