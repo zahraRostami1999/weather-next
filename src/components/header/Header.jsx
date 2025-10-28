@@ -1,27 +1,42 @@
 import React from 'react';
-
+import { Player } from '@lottiefiles/react-lottie-player';
 
 function Header({ condition }) {
   const now = new Date();
   const hours = now.getHours();
-  const clearSky = condition?.toLowerCase().includes('clear');  
+  const clearSky = condition?.toLowerCase().includes('clear');
+  let sunAnimationUrl = "/animations/sun.json";
+  let moonAnimatedUrl = "/animations/moon.json";
 
   return (
-    <div className='font-bold text-right lg:px-10 sm:px-5 px-2 py-2'>
+    <div className='font-bold text-right lg:px-10 sm:px-5 px-2 py-2 relative lg:mb-12'>
       <span className='text-3xl absolute top-5 left-6'>☁️</span>
 
       {(hours >= 6 && hours < 17) && (
         <>
           <span className='text-3xl absolute top-10 right-22'>☁️</span>
           {clearSky &&
-            <span className='text-5xl'>☀️</span>
+            (<>
+              <div className='absolute -top-3 right-0'>
+                <div style={{ width: '110px', height: '100px' }}>
+                  <Player
+                    autoplay
+                    loop
+                    src={sunAnimationUrl}
+                    style={{ height: '100%', width: '100%' }}
+                  />
+                </div>
+              </div>
+            </>)
+
           }
           {
             !clearSky &&
             <span className='text-4xl absolute top-10 right-10'>☁️</span>
           }
         </>
-      )}
+      )
+      }
       {
         (hours <= 5 || hours >= 17) && (
           <>
@@ -29,7 +44,16 @@ function Header({ condition }) {
               <>
                 <span className='text-xs absolute right-24'>⭐</span>
                 <span className='text-[10px] absolute right-28 top-9'>⭐</span>
-                <span className='text-5xl'>🌙</span>
+                <div className='absolute -top-0 right-0'>
+                  <div style={{ width: '85px', height: '100px' }}>
+                    <Player
+                      autoplay
+                      loop
+                      src={moonAnimatedUrl}
+                      style={{ height: '100%', width: '100%' }}
+                    />
+                  </div>
+                </div>
               </>
             }
             {
@@ -42,7 +66,7 @@ function Header({ condition }) {
       <span className='text-2xl absolute top-8 left-20'>☁️</span>
       <span className='text-3xl absolute top-1 left-28'>☁️</span>
 
-    </div>
+    </div >
   )
 }
 

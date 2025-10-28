@@ -17,6 +17,8 @@ const BG_MAP = {
 
 export default function WeatherBackground({ condition = "Clear", isDay = true, children }) {
   let key = condition.toLowerCase();
+  const now = new Date();
+  const hours = now.getHours();
 
   if (key.includes("cloud") && !isDay) key = "CloudNight";
   else if (key.includes("cloud")) key = "Clouds";
@@ -24,6 +26,7 @@ export default function WeatherBackground({ condition = "Clear", isDay = true, c
   else if (key.includes("snow")) key = "Snow";
   else if (key.includes("fog") || key.includes("mist")) key = "Fog";
   else if (key.includes("clear") && !isDay) key = "ClearNight";
+  else if (hours <= 5 || hours >= 17 && key.includes("clear")) key = "ClearNight";
   else key = "Clear";
 
   const gradient = BG_MAP[key] || BG_MAP.Clear;

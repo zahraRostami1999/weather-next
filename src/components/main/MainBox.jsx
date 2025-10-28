@@ -5,12 +5,10 @@ import ClothBox from '../cloth/ClothBox';
 import SearchInput from './SearchInput';
 import { use } from 'react';
 
-function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
-    const [city, setCity] = useState("");
+function MainBox({ city, onWeatherChange, isDay }) {
     const [weather, setWeather] = useState(null);
     const [temp, setTemp] = useState(0);
     const [desc, setDesc] = useState("");
-    const [time, setTime] = useState("");
 
     const API_KEY = process.env.NEXT_PUBLIC_WEATHER_KEY;
 
@@ -24,7 +22,6 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
             const data = await res.json();
             if (data && data.list) {
                 setWeather(data);
-                setTime(data.list[0].dt_txt);
                 const dailyData = getDailyData(data.list);
                 if (dailyData.length > 0) {
                     const today = dailyData[0];
@@ -41,21 +38,6 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
         }
     };
 
-    useEffect(() => {
-        const checkIsDayOrNight = (time) => {
-            let num = time.split(" ")[1];
-            if (num) {
-                let hour = num.split(":")[0];
-                let numHour = parseInt(hour);
-                if (numHour >= 18 || numHour <= 6) {
-                    onTimeCheck(false);
-                } else {
-                    onTimeCheck(true);
-                }
-            }
-        }
-        checkIsDayOrNight(time)
-    }, [time])
 
     const getDayOfWeek = (dateString) => {
         const date = new Date(dateString);
@@ -133,16 +115,13 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
 
     return (
         <div className='flex flex-col relative w-full items-center gap-20 h-full'>
-            <div className='w-1/2 flex justify-center'>
-                <SearchInput onCityChange={handleCityChange} />
-            </div>
             {weather && weather.list && (
                 <>
                     <div
-                        className={`lg:w-3/5 w-11/12 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-1/2" : "h-1/3"
-                            } bg-[rgba(19,19,19,0.5)] text-white transition-all duration-500`}
+                        className={`lg:w-1/2 w-11/12 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-4/5" : "h-1/3"
+                            } ${!isDay ? "bg-[rgba(255,243,178,0.1)]" : "bg-[rgba(19,19,19,0.5)]"} text-white transition-all duration-500`}
                     >
-                        <div className="relative flex flex-row w-4/5 justify-between gap-10 mt-5">
+                        <div className="relative flex flex-row w-11/12 justify-center items-center gap-6">
                             {getDailyData(weather.list).slice(0, 3).map((day, idx) => (
                                 <Card
                                     key={day.date}
@@ -157,14 +136,6 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
                 </>
             )
             }
-
-            {/* {
-                weather && (
-                    <div className='w-full'>
-                        <ClothBox temp={temp} description={desc} />
-                    </div>
-                )
-            } */}
         </div >
     );
 }

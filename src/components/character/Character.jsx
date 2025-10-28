@@ -4,7 +4,6 @@ import { Player } from '@lottiefiles/react-lottie-player';
 
 function Character({ condition, isDay, temp }) {
     let animationUrl = "/animations/walking.json";
-    console.log(condition);
 
     if (condition) {
         const lowerCondition = condition.toLowerCase();
@@ -23,24 +22,26 @@ function Character({ condition, isDay, temp }) {
         if (lowerCondition.includes("thunder")) {
             animationUrl = "/animations/danger.json";
         }
-    }
+        if (!isDay && (lowerCondition.includes("clear") || lowerCondition.includes("cloud"))) {
+            animationUrl = "/animations/games.json";
+        }
 
-
-    return (
-        <>
-            <div className='w-1/5 fixed bottom-0'>
-                <div style={{ width: '300px', height: '300px', margin: 'auto' }}>
-                    <Player
-                        autoplay
-                        loop
-                        src={animationUrl}
-                        style={{ height: '100%', width: '100%' }}
-                    />
+        return (
+            <>
+                <div className='w-1/5 fixed lg:bottom-0 lg:right-0 bottom- right-72'>
+                    <div style={{ width: '300px', height: '300px', margin: 'auto' }}>
+                        <Player
+                            autoplay
+                            loop
+                            src={animationUrl}
+                            style={{ height: '100%', width: '100%' }}
+                        />
+                    </div>
                 </div>
-            </div>
-        </>
+            </>
 
-    )
+        )
+    }
 }
 
-export default Character;
+    export default Character;
