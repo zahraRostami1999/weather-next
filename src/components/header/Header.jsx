@@ -4,7 +4,7 @@ import React from 'react';
 function Header({ condition }) {
   const now = new Date();
   const hours = now.getHours();
-  const clearSky = condition.toLowerCase().includes('clear');  
+  const clearSky = condition?.toLowerCase().includes('clear');  
 
   return (
     <div className='font-bold text-right lg:px-10 sm:px-5 px-2 py-2'>

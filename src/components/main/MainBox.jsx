@@ -133,14 +133,15 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
 
     return (
         <div className='flex flex-col relative w-full items-center gap-20 h-full'>
-            <div
-                className={`lg:w-3/5 w-11/12 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-1/2" : "h-1/3"
-                    } bg-[rgba(19,19,19,0.5)] text-white transition-all duration-500`}
-            >
+            <div className='w-1/2 flex justify-center'>
                 <SearchInput onCityChange={handleCityChange} />
-
-                {weather && weather.list && (
-                    <>
+            </div>
+            {weather && weather.list && (
+                <>
+                    <div
+                        className={`lg:w-3/5 w-11/12 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-1/2" : "h-1/3"
+                            } bg-[rgba(19,19,19,0.5)] text-white transition-all duration-500`}
+                    >
                         <div className="relative flex flex-row w-4/5 justify-between gap-10 mt-5">
                             {getDailyData(weather.list).slice(0, 3).map((day, idx) => (
                                 <Card
@@ -152,9 +153,11 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
                                 />
                             ))}
                         </div>
-                    </>
-                )}
-            </div>
+                    </div>
+                </>
+            )
+            }
+
             {/* {
                 weather && (
                     <div className='w-full'>
@@ -162,7 +165,7 @@ function MainBox({ onWeatherChange, onTimeCheck, isDay }) {
                     </div>
                 )
             } */}
-        </div>
+        </div >
     );
 }
 

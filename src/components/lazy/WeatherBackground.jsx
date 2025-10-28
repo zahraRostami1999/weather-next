@@ -37,7 +37,7 @@ export default function WeatherBackground({ condition = "Clear", isDay = true, c
       {key === "ClearNight" && <StarsOverlay />}
       {key === "CloudNight" && <CloudNight />}
 
-      <div className="relative z-10 flex flex-col">{children}</div>
+      <div className="relative z-10 flex flex-col justify-center">{children}</div>
     </div>
   );
 }

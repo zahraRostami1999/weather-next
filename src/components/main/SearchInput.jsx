@@ -15,7 +15,7 @@ function SearchInput({ onCityChange }) {
     }
 
     if (city === selectedCity) {
-      setSuggestions([]); 
+      setSuggestions([]);
       return;
     }
 
@@ -34,7 +34,7 @@ function SearchInput({ onCityChange }) {
         console.error(err);
         if (mounted) setSuggestions([]);
       }
-    }, 500); 
+    }, 500);
     return () => {
       mounted = false;
       clearTimeout(timer);
@@ -50,14 +50,18 @@ function SearchInput({ onCityChange }) {
 
   return (
     <>
-      <div className="h-14 lg:w-4/5 w-11/12 relative border-2 rounded-lg flex justify-between px-2">
+      <div className="h-12 lg:w-1/2 w-11/12 
+      relative pl-6 pr-2 
+       border-2 border-white border-t-0 border-r-0 rounded-3xl
+        flex justify-between 
+        ">
         <input
           type="text"
-          placeholder="Enter city name..."
+          placeholder="city name..."
           value={city}
           onChange={(e) => {
             setCity(e.target.value);
-            setSelectedCity(null); 
+            setSelectedCity(null);
           }}
           className="text-xl w-full focus:outline-none bg-transparent text-white"
           onKeyDown={(e) => {
