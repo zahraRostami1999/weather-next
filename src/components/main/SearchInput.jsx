@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import { FaSearch, FaArrowLeft } from 'react-icons/fa';
 import { searchCity } from '@/services/cities';
+import { Loading } from '../loading/Loading';
 
 function SearchInput({ onCityChange }) {
   const [city, setCity] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const [selectedCity, setSelectedCity] = useState(null);
   const [isFocused, setIsFocused] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (city === "") {
@@ -42,15 +44,19 @@ function SearchInput({ onCityChange }) {
     };
   }, [city, selectedCity]);
 
-  const handleSelect = (name) => {
+  const handleSelect = async (name) => {
+    setIsLoading(true);
     setCity(name);
     setSelectedCity(name);
     setSuggestions([]);
     onCityChange(name);
+
+    setTimeout(() => setIsLoading(false), 2000);
   };
 
   return (
     <>
+    <Loading isLoading={isLoading} />
       <div
         className={`h-12 lg:w-1/2 w-11/12 
           relative pl-6 pr-2 flex justify-between items-center
