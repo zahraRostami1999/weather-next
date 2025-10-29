@@ -5,6 +5,7 @@ import Header from '@/components/header/Header';
 import MainBox from '@/components/main/MainBox';
 import Character from "@/components/character/Character";
 import SearchInput from '@/components/main/SearchInput';
+import DateAndTime from '@/components/data/DateAndTime';
 import Footer from '@/components/footer/Footer';
 
 function index() {
@@ -17,7 +18,7 @@ function index() {
   useEffect(() => {
     if (hours >= 17 || hours <= 6) {
       setIsDay(false);
-    } else if (hours < 17 || hours > 6){
+    } else if (hours < 17 || hours > 6) {
       setIsDay(true);
     }
   }, [hours])
@@ -41,6 +42,9 @@ function index() {
       <div className='flex justify-center lg:mt-0 mt-64'>
         <SearchInput onCityChange={handleCityChange} />
       </div>
+      {/* <div>
+        <DateAndTime data={now}/>
+      </div> */}
       <div>
         <Footer />
       </div>
