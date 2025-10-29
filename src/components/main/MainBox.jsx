@@ -118,10 +118,10 @@ function MainBox({ city, onWeatherChange, isDay }) {
             {weather && weather.list && (
                 <>
                     <div
-                        className={`lg:w-1/2 w-11/12 flex justify-center items-center flex-col p-5 rounded-lg ${weather ? "h-4/5" : "h-1/3"
-                            } ${!isDay ? "bg-[rgba(255,243,178,0.1)]" : "bg-[rgba(19,19,19,0.5)]"} text-white transition-all duration-500`}
+                        className={`lg:w-1/2 md:w-3/5 w-11/12 flex justify-center items-center flex-col p-5 rounded-xl ${weather ? "h-4/5" : "h-1/3"
+                            } ${!isDay ? "bg-[rgba(255,243,178,0.1)]" : "bg-[rgba(19,19,19,0.2)]"} text-white transition-all duration-500`}
                     >
-                        <div className="relative flex flex-row w-11/12 justify-center items-center gap-6">
+                        <div className="relative flex flex-row lg:w-11/12 w-full justify-center items-center lg:gap-6 gap-4">
                             {getDailyData(weather.list).slice(0, 3).map((day, idx) => (
                                 <Card
                                     key={day.date}

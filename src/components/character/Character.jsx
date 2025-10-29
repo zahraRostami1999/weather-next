@@ -44,17 +44,23 @@ function Character({ condition, isDay, temp }) {
   }, [condition, isDay, temp]);
 
   return (
-    <div className='w-1/5 fixed lg:bottom-0 lg:right-0 bottom-0 right-72'>
-      <div style={{ width: '300px', height: '300px', margin: 'auto' }}>
-        <Player
-          key={animationUrl}
-          autoplay
-          loop
-          src={animationUrl}
-          style={{ height: '100%', width: '100%' }}
-        />
+    <div className='w-full flex justify-center items-center'>
+      <div className='lg:w-1/5 w-full lg:fixed flex justify-center 
+  lg:-bottom-5 lg:right-0 
+  bottom-[100px] 
+'>
+        <div style={{ width: '300px', height: '300px', margin: 'auto' }}>
+          <Player
+            key={animationUrl}
+            autoplay
+            loop
+            src={animationUrl}
+            style={{ height: '100%', width: '100%' }}
+          />
+        </div>
       </div>
     </div>
+
   );
 }
 

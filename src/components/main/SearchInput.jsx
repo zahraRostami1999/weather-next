@@ -51,14 +51,14 @@ function SearchInput({ onCityChange }) {
     setSuggestions([]);
     onCityChange(name);
 
-    setTimeout(() => setIsLoading(false), 2000);
+    setTimeout(() => setIsLoading(false), 3000);
   };
 
   return (
     <>
     <Loading isLoading={isLoading} />
       <div
-        className={`h-12 lg:w-1/2 w-11/12 
+        className={`h-12 lg:w-1/2 md:w-3/5 w-11/12 
           relative pl-6 pr-2 flex justify-between items-center
           border-2 rounded-3xl
           transition-all duration-500 ease-in-out
@@ -84,7 +84,7 @@ function SearchInput({ onCityChange }) {
         <button
           onClick={() => handleSelect(city)}
           className={`ml-2 p-2 text-white text-xl transition-all duration-500 ease-in-out 
-          ${city ? 'rotate-180 text-yellow-400' : 'rotate-0'}
+          ${city ? 'rotate-180' : 'rotate-0'}
           ${isFocused ? "text-yellow-400 placeholder:text-white" : "text-white"}
           `}
 

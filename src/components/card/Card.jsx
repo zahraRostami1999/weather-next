@@ -28,14 +28,17 @@ function Card({ day, degree, description, isDay }) {
     const selectedEmoji = weatherEmojis[description] || '❓';
 
     return (
-        <div className='w-full flex justify-center flex-col pb-3 rounded-lg border border-white'>
-            <p className='bg-[rgba(19,19,19,0.5)] py-1 text-lg font-semibold rounded-t-lg text-white border-b border-white mb-2 flex items-center justify-center'>
+        <div className='w-full flex justify-center flex-col pb-3 rounded-xl border border-white'>
+            <p className='bg-[rgba(19,19,19,0.2)]
+                py-1 mb-2 
+                lg:text-lg text-sm font-semibold rounded-t-xl  text-white border-b border-white 
+                flex items-center justify-center'>
                 {day}
             </p>
             <p className='text-center text-lg font-mono font-bold'>
                 {Math.round(degree)} <span className='text-sm font-normal'>°C</span>
             </p>
-            <div className='text-5xl w-full flex justify-center mt-3'>
+            <div className='lg:text-5xl text-4xl w-full flex justify-center mt-3'>
                 {selectedEmoji}
             </div>
         </div>

@@ -31,14 +31,14 @@ function index() {
       <div>
         <Header condition={weatherInfo?.description || "Clear"} />
       </div>
-      <div className='h-[250px] lg:mt-3 mt-32'>
+      <div className='h-[250px] lg:mt-3 mt-48'>
         <MainBox city={city}
           onWeatherChange={(info) => setWeatherInfo(info)}
           isDay={isDay} />
       </div>
-      <div className='h-[200px] w-full flex justify-end '>
+      <div className='h-[200px] w-full flex justify-end'>
         <Character condition={weatherInfo?.description || "Clear"} isDay={isDay} temp={weatherInfo?.temp} />      </div>
-      <div className='flex justify-center'>
+      <div className='flex justify-center lg:mt-0 mt-64'>
         <SearchInput onCityChange={handleCityChange} />
       </div>
       <div>
