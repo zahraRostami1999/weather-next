@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Player } from '@lottiefiles/react-lottie-player';
+import dynamic from 'next/dynamic';
+
+const Player = dynamic(
+  () => import('@lottiefiles/react-lottie-player').then(mod => mod.Player),
+  { ssr: false }
+);
 
 function Character({ condition, isDay, temp }) {
   const [animationUrl, setAnimationUrl] = useState("/animations/walking.json");
@@ -46,9 +51,8 @@ function Character({ condition, isDay, temp }) {
   return (
     <div className='w-full flex justify-center items-center'>
       <div className='lg:w-1/5 w-full lg:fixed flex justify-center 
-  lg:-bottom-5 lg:right-0 
-  bottom-[100px] 
-'>
+        lg:-bottom-5 lg:right-0 
+        bottom-[100px]'>
         <div style={{ width: '300px', height: '300px', margin: 'auto' }}>
           <Player
             key={animationUrl}
@@ -60,7 +64,6 @@ function Character({ condition, isDay, temp }) {
         </div>
       </div>
     </div>
-
   );
 }
 
